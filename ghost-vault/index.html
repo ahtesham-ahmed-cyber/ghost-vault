@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>// GHOST VAULT v1.0</title>
+
+    <!-- CSS (VIP Luxury Theme) -->
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <!-- ============================================================
+         VAULT HEADER
+         ============================================================ -->
+    <header class="vault-header">
+        <div class="header-left">
+            <svg class="header-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d4a853" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="14" rx="2" />
+                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                <circle cx="12" cy="12" r="2" />
+                <line x1="12" y1="14" x2="12" y2="18" />
+            </svg>
+            <span class="brand">GHOST VAULT</span>
+            <span class="version">v1.0</span>
+        </div>
+        <div class="header-right">
+            <span class="status-dot"></span>
+            <span class="status-label">// SECURE VAULT</span>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         MAIN APP CONTAINER
+         ============================================================ -->
+    <main class="app-container">
+
+        <!-- ASCII BANNER -->
+        <div class="banner">
+            <pre>
+╔═══════════════════════════════════════════╗
+║   ▒▒▒  ░░░  ██████  ██████  ██████       ║
+║   ░▒▒  ▒▒▒  ██  ██  ██  ██  ██  ██       ║
+║   ░░▒  ▒▒▒  ██████  ██████  ██████       ║
+║   ▒░▒  ▒▒▒  ██  ██  ██  ██  ██  ██       ║
+║   ▒▒░  ▒▒▒  ██  ██  ██  ██  ██  ██       ║
+║   ▒▒▒  ░░░  ██████  ██████  ██████       ║
+║   // Plausible Deniability · Offline     ║
+╚═══════════════════════════════════════════╝
+            </pre>
+        </div>
+
+        <!-- ============================================================
+             LOCK SCREEN (Login)
+             ============================================================ -->
+        <div class="lock-screen" id="lockScreen">
+            <div class="lock-icon-wrapper">
+                <svg class="lock-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d4a853" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <span class="lock-badge">VAULT LOCKED</span>
+            </div>
+
+            <div class="login-form">
+                <label for="passwordInput" class="input-label">
+                    <span class="prompt">◆</span> ENTER PASSPHRASE
+                    <span class="badge">secure</span>
+                </label>
+                <div class="password-wrapper">
+                    <input type="password" id="passwordInput" class="vault-input" name="password" aria-label="Enter your vault passphrase" placeholder="• • • • • • • •" />
+                    <button type="button" id="togglePass" class="toggle-btn" aria-label="Toggle password visibility">SHOW</button>
+                </div>
+                <button type="button" id="unlockBtn" class="vault-btn unlock-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                        <polyline points="17 6 23 6 23 12" />
+                    </svg>
+                    UNLOCK VAULT
+                </button>
+                <div class="login-footer">
+                    <span class="vault-hint">// Two vaults. Two realities. One password decides.</span>
+                </div>
+            </div>
+
+            <!-- Status bar inside lock screen -->
+            <div class="status-terminal" id="statusTerminal">
+                <div class="terminal-line" id="statusOutput">
+                    <span class="prompt">root@ghost:~$</span>
+                    <span class="cmd">./vault --status</span>
+                    <span class="response">// awaiting authentication ...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             VAULT DASHBOARD (Hidden by default - using CSS class)
+             ============================================================ -->
+        <div class="vault-dashboard hidden" id="vaultDashboard">
+
+            <!-- Vault Type Indicator -->
+            <div class="vault-type-indicator" id="vaultTypeIndicator">
+                <span class="vault-type-badge real" id="realBadge">🔐 REAL VAULT</span>
+                <span class="vault-type-badge decoy hidden" id="decoyBadge">🎭 DECOY VAULT</span>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action-bar">
+                <button type="button" id="addEntryBtn" class="action-btn primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    ADD ENTRY
+                </button>
+                <button type="button" id="exportBtn" class="action-btn secondary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    EXPORT
+                </button>
+                <button type="button" id="lockBtn" class="action-btn danger">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    LOCK VAULT
+                </button>
+            </div>
+
+            <!-- Entries Table -->
+            <div class="entries-container">
+                <div class="entries-header">
+                    <span class="col-service">SERVICE</span>
+                    <span class="col-username">USERNAME</span>
+                    <span class="col-password">PASSWORD</span>
+                    <span class="col-actions">ACTIONS</span>
+                </div>
+                <div class="entries-list" id="entriesList">
+                    <!-- Entries rendered by JavaScript -->
+                    <div class="empty-state" id="emptyState">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="6" width="20" height="14" rx="2" />
+                            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                            <circle cx="12" cy="12" r="2" />
+                        </svg>
+                        <p>No entries found. Add your first credential.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vault Footer -->
+            <div class="vault-footer">
+                <span class="entry-count" id="entryCount">0 entries</span>
+                <span class="vault-id">// vault: <span id="vaultId">—</span></span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             PROGRESS BAR (Hidden by default)
+             ============================================================ -->
+        <div class="progress-container hidden" id="progressContainer">
+            <div class="progress-bar" id="progressBar"></div>
+            <span class="progress-text" id="progressText">0%</span>
+        </div>
+
+    </main>
+
+    <!-- ============================================================
+         ADD / EDIT MODAL
+         ============================================================ -->
+    <div class="modal-overlay hidden" id="entryModal">
+        <div class="modal-box modal-entry">
+            <div class="modal-header">
+                <span class="modal-icon">✧</span>
+                <span class="modal-title" id="entryModalTitle">ADD ENTRY</span>
+                <button type="button" id="closeEntryModal" class="modal-close">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="entryService">Service / Website</label>
+                    <input type="text" id="entryService" class="modal-input" placeholder="e.g., Gmail" />
+                </div>
+                <div class="form-group">
+                    <label for="entryUsername">Username / Email</label>
+                    <input type="text" id="entryUsername" class="modal-input" placeholder="e.g., john.doe@gmail.com" />
+                </div>
+                <div class="form-group">
+                    <label for="entryPassword">Password</label>
+                    <div class="modal-password-wrapper">
+                        <input type="password" id="entryPassword" class="modal-input" placeholder="••••••••" />
+                        <button type="button" id="toggleEntryPass" class="modal-toggle-btn">SHOW</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelEntryBtn" class="modal-btn cancel">CANCEL</button>
+                <button type="button" id="saveEntryBtn" class="modal-btn save">SAVE ENTRY</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         CONFIRM DELETE MODAL
+         ============================================================ -->
+    <div class="modal-overlay hidden" id="confirmModal">
+        <div class="modal-box modal-confirm">
+            <div class="modal-header">
+                <span class="modal-icon">⚠</span>
+                <span class="modal-title">CONFIRM DELETE</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="deleteEntryName">this entry</strong>?</p>
+                <p class="muted">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelDeleteBtn" class="modal-btn cancel">CANCEL</button>
+                <button type="button" id="confirmDeleteBtn" class="modal-btn danger">DELETE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         JAVASCRIPT MODULES
+         ============================================================ -->
+    <script src="js/uiController.js"></script>
+    <script src="js/cryptoEngine.js"></script>
+    <script src="js/vaultManager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
